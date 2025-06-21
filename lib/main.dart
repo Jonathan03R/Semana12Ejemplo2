@@ -40,17 +40,31 @@ class MyApp extends StatelessWidget {
                         frequency: 1.0,
                         max: 13.0,
                         min: 7.0,
-                        textStyle: TextStyle(color: Colors.black, fontSize: 10.0),
+                        textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 10.0,
+                        ),
                       ),
                       y: ChartAxisSettingsAxis(
                         frequency: 100.0,
                         max: 300.0,
                         min: 0.0,
-                        textStyle: TextStyle(color: Colors.black, fontSize: 10.0),
+                        textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 10.0,
+                        ),
                       ),
                     ),
                     labelX: (value) => value.toInt().toString(),
                     labelY: (value) => value.toInt().toString(),
+                  ),
+                  ChartHighlightLayer(
+                    shape: () => ChartHighlightLineShape<ChartLineDataItem>(
+                      backgroundColor: const Color.fromARGB(110, 171, 145, 233),
+                      currentPos: (item) => item.currentValuePos,
+                      radius: const BorderRadius.all(Radius.circular(8.0)),
+                      width: 60.0,
+                    ),
                   ),
                   ChartLineLayer(
                     items: List.generate(
@@ -65,6 +79,29 @@ class MyApp extends StatelessWidget {
                       thickness: 8.0,
                       color: Colors.cyanAccent,
                       // radius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
+                  ),
+                  ChartTooltipLayer(
+                    shape: () => ChartTooltipLineShape<ChartLineDataItem>(
+                      backgroundColor: Colors.white,
+                      circleBackgroundColor: Colors.white,
+                      circleBorderColor: const Color(0xFF331B6D),
+                      circleSize: 4.0,
+                      circleBorderThickness: 2.0,
+                      currentPos: (item) => item.currentValuePos,
+                      onTextValue: (item) => '€${item.value.toString()}',
+                      marginBottom: 6.0,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 8.0,
+                      ),
+                      radius: 6.0,
+                      textStyle: const TextStyle(
+                        color: Color(0xFF8043F9),
+                        letterSpacing: 0.2,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ],
